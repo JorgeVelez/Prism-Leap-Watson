@@ -1,2 +1,2 @@
 # Prism-Leap-Watson
-![Alt text](Mira Prism Leap Motion Watson.jpg)
+![](Mira%20Prism%20Leap%20Motion%20Watson.jpg)
