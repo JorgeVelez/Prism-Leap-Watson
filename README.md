@@ -12,7 +12,7 @@ and [Conversation](https://www.ibm.com/watson/services/conversation/), user can 
 **Note this is for PC setup** 
 * [Unity](https://store.unity.com/?_ga=2.174474786.1882622745.1511205620-1336275404.1503067450) - 2017.03f
 * [Mira](https://www.mirareality.com/download)
-* [Watson](https://github.com/watson-developer-cloud/unity-sdk): **Make sure you follow the before you begin section** You will need the api keys for STT,TTS, and Conversaion
+* [Watson](https://github.com/watson-developer-cloud/unity-sdk/releases/tag/2.0.0)
 * [Leap Motion](https://developer.leapmotion.com/get-started)
 * [Leap Motion Core Assets](https://developer.leapmotion.com/unity/#116)
 * [Leap Motion Interaction Engine](https://developer.leapmotion.com/unity/#116)
@@ -36,5 +36,32 @@ and [Conversation](https://www.ibm.com/watson/services/conversation/), user can 
 ![](Hands%20Offset.png)
 - If you go to LeapSpace under CenterEyeAnchor and checked Allow Manual Device Offset, you can manual change the Offset of the hands 
 
-
-
+#### Setting Watson API 
+1. Go to https://github.com/watson-developer-cloud/unity-sdk and follow the Before you begin section, make sure you have SST, TTS and Conversation API keys 
+2. Import the Watson SDK package into Unity 
+3. In MiraARCamera Entity add Example Streaming(Script) and Example TTS(Script). 
+4. Open the Example Streaming Script and add in your credentials: username/password/url 
+5. Create a ``public Text CurrentUserMessage;`` on line 32 
+6. In line 177 add 
+```
+//When the results its final, we want to save it to CurrentUserMessage
+if(res.final) {
+  CurrentUserMessage.text = text;
+  Log.Debug("This is user message", text);
+}
+```
+7. Save and then open Example TextToSpeech and add in your credentials: username/password/url 
+8. On line 30 add ``public Text WatsonResponse;`` and on 31 ``private string prevString;``
+9. On line 78 add 
+```
+private void Update() 
+{
+  if(WatsonResponse.text != null) {
+    if(prevString != WatsonResponse.text) {
+      //When there is a new text that comes in we want 
+      prevString = WatsonResponse.text; 
+      
+    }
+  }
+}
+```
