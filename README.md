@@ -22,14 +22,18 @@ and [Conversation](https://www.ibm.com/watson/services/conversation/), user can 
 1. Create a new unity project, import mira unity sdk and start with the 101_HelloWorld_ Scene 
 2. Go to Edit -> Project Settings -> Editor Settings, Select your iPhone as a Device and Normal for Resolution, for game view have it 16:9
 3. Hit Play and make sure you can look around 
+![](Mira%20and%20Leap%20Motion%20in%20Scene.png)
 4. Import the Leap Motion Core Assets into unity, go to LeapMotion -> Core -> Examples -> and drag the Leap Hands Demo (VR) into the scene 
+![](Move%20Entity.png)
 5. Drag LMHeadMountedRig into MiraARCamera as a child then remove the Leap Hands Demo (VR) Scene 
+![](CenterEyeAnchor.png)
 6. Go to CenterEyeAnchor component that under LMHeadMountedRig and unchecked marked the camera component 
 7. Attached your Leap Motion ontop of your Mira and press play 
 8. You should now be able to see your hands models in the AR spaces. 
 
 ##### Tips 
 - Change the color of the light source to white to see the hands more clear 
+![](Hands%20Offset.png)
 - If you go to LeapSpace under CenterEyeAnchor and checked Allow Manual Device Offset, you can manual change the Offset of the hands 
 
 
