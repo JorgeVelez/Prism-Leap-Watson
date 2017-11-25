@@ -1,0 +1,78 @@
+[
+    {
+        "id": "87b6fdd1.e7b5d",
+        "type": "http in",
+        "z": "4998b38f.29098c",
+        "name": "",
+        "url": "/conversation",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 310,
+        "y": 260,
+        "wires": [
+            [
+                "a65381ed.7850b"
+            ]
+        ]
+    },
+    {
+        "id": "22137c4a.691984",
+        "type": "watson-conversation-v1",
+        "z": "4998b38f.29098c",
+        "name": "",
+        "workspaceid": "1b4c1210-fe34-4c9e-8d35-344bab09d8d2",
+        "multiuser": true,
+        "context": true,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/conversation/api",
+        "x": 770,
+        "y": 260,
+        "wires": [
+            [
+                "e97c22de.417ba"
+            ]
+        ]
+    },
+    {
+        "id": "a65381ed.7850b",
+        "type": "function",
+        "z": "4998b38f.29098c",
+        "name": "Setting UserId and Text",
+        "func": "msg.user = msg.payload.userId; \nmsg.payload = msg.payload.text;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 550,
+        "y": 260,
+        "wires": [
+            [
+                "22137c4a.691984"
+            ]
+        ]
+    },
+    {
+        "id": "e97c22de.417ba",
+        "type": "function",
+        "z": "4998b38f.29098c",
+        "name": "Setting Text as Payload",
+        "func": "msg.payload = msg.payload.output.text.join('')\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 990,
+        "y": 260,
+        "wires": [
+            [
+                "c15e1117.b962"
+            ]
+        ]
+    },
+    {
+        "id": "c15e1117.b962",
+        "type": "http response",
+        "z": "4998b38f.29098c",
+        "name": "",
+        "x": 1170,
+        "y": 260,
+        "wires": []
+    }
+]
