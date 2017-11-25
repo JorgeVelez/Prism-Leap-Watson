@@ -40,28 +40,63 @@ and [Conversation](https://www.ibm.com/watson/services/conversation/), user can 
 1. Go to https://github.com/watson-developer-cloud/unity-sdk and follow the Before you begin section, make sure you have SST, TTS and Conversation API keys 
 2. Import the Watson SDK package into Unity 
 3. In MiraARCamera Entity add Example Streaming(Script) and Example TTS(Script). 
-4. Open the Example Streaming Script and add in your credentials: username/password/url 
-5. Create a ``public Text CurrentUserMessage;`` on line 32 
-6. In line 177 add 
+4. Create a new Script ``GlobalVaribalesAndPostRequest.cs`` and have it a component under MiraARCamera, we will be using this to manage all of the variables
+5. Open our new script and replace the code with the follow code and then save your changes
 ```
-//When the results its final, we want to save it to CurrentUserMessage
-if(res.final) {
-  CurrentUserMessage.text = text;
-  Log.Debug("This is user message", text);
-}
-```
-7. Save and then open Example TextToSpeech and add in your credentials: username/password/url 
-8. On line 30 add ``public Text WatsonResponse;`` and on 31 ``private string prevString;``
-9. On line 78 add 
-```
-private void Update() 
-{
-  if(WatsonResponse.text != null) {
-    if(prevString != WatsonResponse.text) {
-      //When there is a new text that comes in we want 
-      prevString = WatsonResponse.text; 
-      
+// Create all the global variables that we will be using 
+    public static string CurrentUserMessage;
+    public static bool NewUserMessage = false; 
+    public static string CurrentWatsonMessage;
+    public static bool NewWatsonMessage = false;
+    
+    void Update()
+    {
+        //When there is a new message we want to send a Post Request to conversation
+        if (NewUserMessage != false) {
+            NewUserMessage = false;
+            Debug.Log("Sending a Post request");
+            string url = "URL Link to Conversation";
+            WWWForm formDate = new WWWForm();
+            formDate.AddField("text", CurrentUserMessage);
+            formDate.AddField("userId", "randomstring");
+            WWW www = new WWW(url, formDate);
+            StartCoroutine(request(www));
+        }	
+	}
+
+    IEnumerator request(WWW www) {
+        yield return www;
+        CurrentWatsonMessage = www.text;
+        Debug.Log("this is watson message: " + CurrentWatsonMessage);
+        NewWatsonMessage = true;
     }
-  }
+```
+6. Next Open ExampleStream.cs and put in your credentials
+7. Then on after line 173 ``string text = alt.transcript;``, insert the following code and save 
+```
+if (res.final) {
+    //Save the user text 
+    GlobalVariablesAndPostRequest.CurrentUserMessage = text;
+    //Setting the flag = true
+    GlobalVariablesAndPostRequest.NewUserMessage = true;
+    Log.Debug("This is user message", text);
 }
 ```
+8. Open ExampleTextToSpeech and put in your credentials
+9. Comment line 66 ``//Runnable.Run(Examples());`` and create private void Update()
+10. In the Update function add the following code and save 
+```
+    private void Update()
+    {
+        if (GlobalVariablesAndPostRequest.NewWatsonMessage) {
+            GlobalVariablesAndPostRequest.NewWatsonMessage = false;
+            Log.Debug("ExampleTextToSpeech", "Attempting synthesize.");
+            _textToSpeech.Voice = VoiceType.en_US_Allison;
+            _textToSpeech.ToSpeech(GlobalVariablesAndPostRequest.CurrentWatsonMessage, HandleToSpeechCallback, true);
+        }
+    }
+
+```
+#### Notes 
+- In this case I'm sending a post a request to conversation instead of using Watson SDK unity Conversation example. 
+- You can any site to host your conversation enviroment, i.e. herkou, for this case I used Node-Red. You can find the flow in this repo
