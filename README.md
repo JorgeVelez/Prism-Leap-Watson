@@ -101,11 +101,9 @@ if (res.final) {
     {
         if (GlobalVariablesAndPostRequest.NewWatsonMessage) {
             GlobalVariablesAndPostRequest.NewWatsonMessage = false;
-            Log.Debug("ExampleTextToSpeech", "Attempting synthesize.");
-            _textToSpeech.Voice = VoiceType.en_US_Allison;
 	   /* From here you can setup your own Conversation Parser and perform action based on the Conversation Text
 	      For Example: CurrentWatsonMessage = Creating: Blue Box 
-	      if (GlobalVariablesAndPostRequest.CurrentWatsonMessage.Contains("Creating")) {
+	       	if (GlobalVariablesAndPostRequest.CurrentWatsonMessage.Contains("Creating")) {
                 char delimiter = ' ';
                 string[] substring = GlobalVariablesAndPostRequest.CurrentWatsonMessage.Split(delimiter);
                 string colorOfShape = substring[1];
@@ -126,15 +124,19 @@ if (res.final) {
                     if (colorOfShape.Equals("Green"))
                     {
                         cube.GetComponent<Renderer>().material.color = Color.green;
-                    }                    
-		    cube.transform.localScale = new Vector3(.15F, .15F, .15F);
-                    cube.transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
-                    Rigidbody cubeRigidBody = cube.AddComponent<Rigidbody>();
-                    cubeRigidBody.useGravity = false;
-		    //Add InteractionBehaviour so you can interaction with object you created with Leap Motion
-                    cube.AddComponent<Leap.Unity.Interaction.InteractionBehaviour>();
+                    }
+
+                    //cube.transform.localScale = new Vector3(.15F, .15F, .15F);
+                    //cube.transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
+                    //Rigidbody cubeRigidBody = cube.AddComponent<Rigidbody>();
+                    //cubeRigidBody.useGravity = false;
+                    //cube.AddComponent<Leap.Unity.Interaction.InteractionBehaviour>();
                 }
-            } */
+            }
+            //Vector3 postionOfCamera = Camera.main.transform.position;
+            Log.Debug("ExampleTextToSpeech", "Attempting synthesize.");
+	    */
+            _textToSpeech.Voice = VoiceType.en_US_Allison;
             _textToSpeech.ToSpeech(GlobalVariablesAndPostRequest.CurrentWatsonMessage, HandleToSpeechCallback, true);
         }
     }
