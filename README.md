@@ -18,6 +18,7 @@ and [Conversation](https://www.ibm.com/watson/services/conversation/), user can 
 * [Leap Motion Interaction Engine](https://developer.leapmotion.com/unity/#116)
 * Make sure you have download Unity Remote 5 on your iPhone and connect your phone to your desktop
 
+**You can follow the steps belows or you can git clone and start working on the project** 
 #### Connect Mira with Leap Motion
 1. Create a new unity project, import mira unity sdk and start with the 101_HelloWorld_ Scene 
 2. Go to Edit -> Project Settings -> Editor Settings, Select your iPhone as a Device and Normal for Resolution, for game view have it 16:9
