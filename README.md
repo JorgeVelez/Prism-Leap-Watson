@@ -92,6 +92,38 @@ if (res.final) {
             GlobalVariablesAndPostRequest.NewWatsonMessage = false;
             Log.Debug("ExampleTextToSpeech", "Attempting synthesize.");
             _textToSpeech.Voice = VoiceType.en_US_Allison;
+	   /* From here you can setup your own Conversation Parser and perform action based on the Conversation Text
+	      For Example: CurrentWatsonMessage = Creating: Blue Box 
+	      if (GlobalVariablesAndPostRequest.CurrentWatsonMessage.Contains("Creating")) {
+                char delimiter = ' ';
+                string[] substring = GlobalVariablesAndPostRequest.CurrentWatsonMessage.Split(delimiter);
+                string colorOfShape = substring[1];
+                string shape = substring[2];
+                if (shape.Equals("Box")) {
+                    var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                    if (colorOfShape.Equals("Blue"))
+                    {
+                        cube.GetComponent<Renderer>().material.color = Color.blue;
+                    }
+
+                    if (colorOfShape.Equals("Red"))
+                    {
+                        cube.GetComponent<Renderer>().material.color = Color.red;
+                    }
+
+                    if (colorOfShape.Equals("Green"))
+                    {
+                        cube.GetComponent<Renderer>().material.color = Color.green;
+                    }                    
+		    cube.transform.localScale = new Vector3(.15F, .15F, .15F);
+                    cube.transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
+                    Rigidbody cubeRigidBody = cube.AddComponent<Rigidbody>();
+                    cubeRigidBody.useGravity = false;
+		    //Add InteractionBehaviour so you can interaction with object you created with Leap Motion
+                    cube.AddComponent<Leap.Unity.Interaction.InteractionBehaviour>();
+                }
+            } */
             _textToSpeech.ToSpeech(GlobalVariablesAndPostRequest.CurrentWatsonMessage, HandleToSpeechCallback, true);
         }
     }
