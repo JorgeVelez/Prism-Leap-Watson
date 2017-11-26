@@ -100,3 +100,11 @@ if (res.final) {
 #### Notes 
 - In this case I'm sending a post a request to conversation instead of using Watson SDK unity Conversation example. 
 - You can any site to host your conversation enviroment, i.e. herkou, for this case I used Node-Red. You can find the flow in this repo
+
+
+#### Interaction Engine 
+1. Import Leap Motion Interaction Engine 1.10 into the project 
+2. Then go to Assets -> LeapMotion -> Modules -> InteractionEngine -> Prefabs and drag the Interaction Manager.prefab and put it as a child of LMHeadMountedRig
+3. In the HandModels entity, remove RigidRoundHand L and R 
+4. Go to CenterEyeAnchor -> LeapSpace -> LeapHandController Entity and on the Hand Pool Script set the Left/Right Model as CapsuleHand L/R 
+5. Now everything is setup, any object you want to interact with must have the Rigidbody and Interaction Behaviour Script
