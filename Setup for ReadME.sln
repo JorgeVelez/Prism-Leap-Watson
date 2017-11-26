@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Setup for ReadME", "Setup for ReadME.csproj", "{11AE5A62-78AD-8C23-2D19-C3BD758DBDB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Setup for ReadME.Plugins", "Setup for ReadME.Plugins.csproj", "{86D2043D-5A05-249A-C05B-D42F06857B86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Setup for ReadME.Editor", "Setup for ReadME.Editor.csproj", "{38824F09-B496-1847-3B75-6D59D2A5D4B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11AE5A62-78AD-8C23-2D19-C3BD758DBDB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11AE5A62-78AD-8C23-2D19-C3BD758DBDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11AE5A62-78AD-8C23-2D19-C3BD758DBDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11AE5A62-78AD-8C23-2D19-C3BD758DBDB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86D2043D-5A05-249A-C05B-D42F06857B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86D2043D-5A05-249A-C05B-D42F06857B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86D2043D-5A05-249A-C05B-D42F06857B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86D2043D-5A05-249A-C05B-D42F06857B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38824F09-B496-1847-3B75-6D59D2A5D4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38824F09-B496-1847-3B75-6D59D2A5D4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38824F09-B496-1847-3B75-6D59D2A5D4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38824F09-B496-1847-3B75-6D59D2A5D4B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -71,6 +71,24 @@ public class ExampleConversation : MonoBehaviour
 
         _waitingForResponse = true;
 
+        AskQuestion();
+        while (_waitingForResponse)
+            yield return null;
+        _questionCount++;
+
+        _waitingForResponse = true;
+
+        AskQuestion();
+        while (_waitingForResponse)
+            yield return null;
+        _questionCount++;
+
+        _waitingForResponse = true;
+
+        AskQuestion();
+        while (_waitingForResponse)
+            yield return null;
+
         Log.Debug("ExampleConversation", "Conversation examples complete.");
     }
 

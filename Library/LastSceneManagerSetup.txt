@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Mira and Leap motion.unity
+- path: Assets/Readme.unity
   isLoaded: 1
   isActive: 1

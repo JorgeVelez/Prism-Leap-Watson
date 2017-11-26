@@ -22,7 +22,6 @@ using IBM.Watson.DeveloperCloud.Services.SpeechToText.v1;
 using IBM.Watson.DeveloperCloud.Utilities;
 using IBM.Watson.DeveloperCloud.DataTypes;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 public class ExampleStreaming : MonoBehaviour
 {
@@ -35,8 +34,6 @@ public class ExampleStreaming : MonoBehaviour
     private AudioClip _recording = null;
     private int _recordingBufferSize = 2;
     private int _recordingHZ = 22050;
-    private string previousString; 
-    public Text CurrentString;
 
     private SpeechToText _speechToText;
 
@@ -175,10 +172,12 @@ public class ExampleStreaming : MonoBehaviour
                 {
                     string text = alt.transcript;
                     if (res.final) {
-                        CurrentString.text = text;
-                        Log.Debug("This is final Text", text);                    
+                        GlobalVariablesAndPostRequest.CurrentUserMessage = text;
+                        GlobalVariablesAndPostRequest.NewUserMessage = true;
+                        Log.Debug("This is user message", text);
+                        //print(GlobalVariables.NewUserMessage);
                     }
-                    Log.Debug("ExampleStreaming", string.Format("{0} ({1}, {2:0.00})\n", text, res.final ? "Final" : "Interim", alt.confidence));
+                    //Log.Debug("ExampleStreaming", string.Format("{0} ({1}, {2:0.00})\n", text, res.final ? "Final" : "Interim", alt.confidence));
                 }
 
                 if (res.keywords_result != null && res.keywords_result.keyword != null)

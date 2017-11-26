@@ -20,18 +20,18 @@ using IBM.Watson.DeveloperCloud.Services.TextToSpeech.v1;
 using IBM.Watson.DeveloperCloud.Logging;
 using IBM.Watson.DeveloperCloud.Utilities;
 using System.Collections;
-using UnityEngine.UI;
 
 public class ExampleTextToSpeech : MonoBehaviour
 {
     private string _username = null;
     private string _password = null;
     private string _url = null;
-    public Text CurrentString;
+    Camera m_MainCamera;
+    public float distance;
 
     TextToSpeech _textToSpeech;
-    //string _testString = "<speak version=\"1.0\"><say-as interpret-as=\"letters\">I'm sorry</say-as>. <prosody pitch=\"150Hz\">This is Text to Speech!</prosody><express-as type=\"GoodNews\">I'm sorry. This is Text to Speech!</express-as></speak>";
-    string _testString = "Howdy";
+    string _testString = "<speak version=\"1.0\"><say-as interpret-as=\"letters\">I'm sorry</say-as>. <prosody pitch=\"150Hz\">This is Text to Speech!</prosody><express-as type=\"GoodNews\">I'm sorry. This is Text to Speech!</express-as></speak>";
+
     string _createdCustomizationId;
     CustomVoiceUpdate _customVoiceUpdate;
     string _customizationName = "unity-example-customization";
@@ -52,9 +52,7 @@ public class ExampleTextToSpeech : MonoBehaviour
     private bool _addCustomizationWordsTested = false;
     private bool _deleteCustomizationWordTested = false;
     private bool _getCustomizationWordTested = false;
-    Camera m_MainCamera;
-    private string prevString;
-    public float distance;
+
     void Start()
     {
         LogSystem.InstallDefaultReactors();
@@ -63,57 +61,52 @@ public class ExampleTextToSpeech : MonoBehaviour
         Credentials credentials = new Credentials(_username, _password, _url);
         m_MainCamera = Camera.main;
         Vector3 postionOfCamera = Camera.main.transform.position;
-        Debug.Log(postionOfCamera);
         _textToSpeech = new TextToSpeech(credentials);
-        //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //cube.GetComponent<Renderer>().material.color = Color.red;
-        //cube.transform.localScale = new Vector3 (.15F, .15F, .15F);
-        //cube.transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
-        //Rigidbody cubeRigidBody = cube.AddComponent<Rigidbody>();
-        //cubeRigidBody.useGravity = false;
-        //cube.AddComponent<Leap.Unity.Interaction.InteractionBehaviour>();
+
         //Runnable.Run(Examples());
     }
 
     private void Update()
     {
-        if (CurrentString.text != null) {
-            if (prevString != CurrentString.text) {
-                prevString = CurrentString.text;
-                if (prevString.Contains("Creating")) {
-                    char delimiter = ' ';
-                    string[] substring = prevString.Split(delimiter);
-                    string colorOfShape = substring[1];
-                    string shape = substring[2];
-                    Debug.Log(colorOfShape);
-                    Debug.Log(shape);
-                    if (shape.Equals("Box")) {
-                        var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                        if (colorOfShape.Equals("Blue")) {
-                            cube.GetComponent<Renderer>().material.color = Color.blue;
-                        }
-                        if (colorOfShape.Equals("Red"))
-                        {
-                            cube.GetComponent<Renderer>().material.color = Color.red;
-                        }
-                        if (colorOfShape.Equals("Green"))
-                        {
-                            cube.GetComponent<Renderer>().material.color = Color.green;
-                        }
-                        cube.transform.localScale = new Vector3(.15F, .15F, .15F);
-                        cube.transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
-                        Rigidbody cubeRigidBody = cube.AddComponent<Rigidbody>();
-                        cubeRigidBody.useGravity = false;
-                        cube.AddComponent<Leap.Unity.Interaction.InteractionBehaviour>();
+        if (GlobalVariablesAndPostRequest.NewWatsonMessage) {
+            GlobalVariablesAndPostRequest.NewWatsonMessage = false;
+            if (GlobalVariablesAndPostRequest.CurrentWatsonMessage.Contains("Creating")) {
+                char delimiter = ' ';
+                string[] substring = GlobalVariablesAndPostRequest.CurrentWatsonMessage.Split(delimiter);
+                string colorOfShape = substring[1];
+                string shape = substring[2];
+                if (shape.Equals("Box")) {
+                    var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                    if (colorOfShape.Equals("Blue"))
+                    {
+                        cube.GetComponent<Renderer>().material.color = Color.blue;
                     }
+
+                    if (colorOfShape.Equals("Red"))
+                    {
+                        cube.GetComponent<Renderer>().material.color = Color.red;
+                    }
+
+                    if (colorOfShape.Equals("Green"))
+                    {
+                        cube.GetComponent<Renderer>().material.color = Color.green;
+                    }
+
+                    //cube.transform.localScale = new Vector3(.15F, .15F, .15F);
+                    //cube.transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
+                    //Rigidbody cubeRigidBody = cube.AddComponent<Rigidbody>();
+                    //cubeRigidBody.useGravity = false;
+                    //cube.AddComponent<Leap.Unity.Interaction.InteractionBehaviour>();
                 }
-                _testString = CurrentString.text;
-                Vector3 postionOfCamera = Camera.main.transform.position;
-                Debug.Log(postionOfCamera);
-                Runnable.Run(Examples());
             }
+            //Vector3 postionOfCamera = Camera.main.transform.position;
+            Log.Debug("ExampleTextToSpeech", "Attempting synthesize.");
+            _textToSpeech.Voice = VoiceType.en_US_Allison;
+            _textToSpeech.ToSpeech(GlobalVariablesAndPostRequest.CurrentWatsonMessage, HandleToSpeechCallback, true);
         }
     }
+
     private IEnumerator Examples()
     {
         //  Synthesize
