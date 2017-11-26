@@ -105,6 +105,9 @@ if (res.final) {
 #### Interaction Engine 
 1. Import Leap Motion Interaction Engine 1.10 into the project 
 2. Then go to Assets -> LeapMotion -> Modules -> InteractionEngine -> Prefabs and drag the Interaction Manager.prefab and put it as a child of LMHeadMountedRig
+![](Interaction%20Manager.png)
 3. In the HandModels entity, remove RigidRoundHand L and R 
 4. Go to CenterEyeAnchor -> LeapSpace -> LeapHandController Entity and on the Hand Pool Script set the Left/Right Model as CapsuleHand L/R 
+![](LeapHandController%20CapsuleHand.png)
 5. Now everything is setup, any object you want to interact with must have the Rigidbody and Interaction Behaviour Script
+![](Interaction%20Behaviour.png)
